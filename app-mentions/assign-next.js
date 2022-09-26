@@ -8,6 +8,7 @@ module.exports = async (app, event, context, ec, utils, store, msgText, errHandl
     const pCmd = await utils.parseCmd('assign next', event, context);
     const rotation = pCmd.rotation;
     const handoffMsg = pCmd.handoff;
+    const userGroup = process.env.SLACK_USER_GROUP
 
     if (utils.rotationInList(rotation, ec.rotaList)) {
       // Rotation exists; get rotation and staff list
@@ -41,7 +42,7 @@ module.exports = async (app, event, context, ec, utils, store, msgText, errHandl
           utils.msgConfig(ec.botToken, ec.channelID, msgText.assignConfirm(usermention, rotation))
         );
         // Update user group with new assignment
-        const updateGroup = await app.client.usergroups.users.update(process.env.SLACK_USER_GROUP, usermention);
+        const updateGroup = await app.client.usergroups.users.update(userGroup, usermention);
         if (!!handoffMsg) {
           // There is a handoff message
           // Send DM to newly assigned user notifying them of handoff message
