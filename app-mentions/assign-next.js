@@ -40,6 +40,8 @@ module.exports = async (app, event, context, ec, utils, store, msgText, errHandl
         const result = await app.client.chat.postMessage(
           utils.msgConfig(ec.botToken, ec.channelID, msgText.assignConfirm(usermention, rotation))
         );
+        // Update user group with new assignment
+        const updateGroup = await app.client.usergroups.users.update(process.env.SLACK_USER_GROUP, usermention);
         if (!!handoffMsg) {
           // There is a handoff message
           // Send DM to newly assigned user notifying them of handoff message
