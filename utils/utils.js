@@ -240,6 +240,19 @@ const utils = {
     }
   },
   /**
+   * Config object for updating Slack User Group
+   * @param {string} botToken for Slack access
+   * @param {string} userGroup to update
+   * @param {string} users to add to the group
+   */
+  grpConfig(botToken, userGroup, users) {
+    return {
+      token: botToken,
+      userGroup: userGroup,
+      users: users
+    }
+  },
+  /**
    * Message middleware: ignore some kinds of messages
    * A bit hacky to catch inconsistencies in Slack API
    * (Customer service was contacted; unreliable behavior confirmed)

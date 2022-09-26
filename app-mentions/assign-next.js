@@ -43,7 +43,8 @@ module.exports = async (app, event, context, ec, utils, store, msgText, errHandl
         );
         // Update user group with new assignment
         const users = [usermention, "D0441MUHJ2V"]
-        const updateGroup = await app.client.usergroups.users.update(userGroup, users);
+        const updateGroup = await app.client.usergroups.users.update(
+          utils.grpConfig(ec.botToken, userGroup, users));
         if (!!handoffMsg) {
           // There is a handoff message
           // Send DM to newly assigned user notifying them of handoff message
