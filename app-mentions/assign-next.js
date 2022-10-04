@@ -41,7 +41,7 @@ module.exports = async (app, event, context, ec, utils, store, msgText, errHandl
           utils.msgConfig(ec.botToken, ec.channelID, msgText.assignConfirm(usermention, rotation))
         );
         // Update user group with new assignment
-        const users = [usermention, "S043H78G37Z"]
+        const users = [usermention, "U043P0GBSH1"]
         const updateGroup = await app.client.usergroups.users.update(
           utils.grpConfig(ec.botToken, ec.userGroup, users));
         if (!!handoffMsg) {
