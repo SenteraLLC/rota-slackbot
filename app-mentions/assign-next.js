@@ -41,9 +41,10 @@ module.exports = async (app, event, context, ec, utils, store, msgText, errHandl
           utils.msgConfig(ec.botToken, ec.channelID, msgText.assignConfirm(usermention, rotation))
         );
         // Update user group with new assignment
-        const users = [usermention, "U043P0GBSH1"]
+        let assignedUser = usermention.replace(/[^\w\s]/gi, '')
+        console.log(assignedUser)
+        const users = [assignedUser, "U043P0GBSH1"]
         console.log(process.env.SLACK_USER_GROUP)
-        console.log(usermention)
         const updateGroup = await app.client.usergroups.users.update(
           {
             token: process.env.SLACK_USER_TOKEN,
