@@ -83,7 +83,7 @@ module.exports = async (app, event, context, ec, utils, store, msgText, errHandl
           //   users: users
           //   })
         }
-        const updateGroup = await app.client.usergroups.users.update(
+        const updateGroup = await app.client.usergroups.users.update(users,
             {
             token: process.env.SLACK_USER_TOKEN,
             usergroup: process.env.SLACK_USER_GROUP,
