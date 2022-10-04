@@ -57,33 +57,21 @@ module.exports = async (app, event, context, ec, utils, store, msgText, errHandl
           }
         };
         // Update user group with new assignment
+        console.log(ec)
         if (rotation === 'back-end-rotation') {
           const backEndUser = usermention.replace(/[^\w\s]/gi, '')
           const fronEndRotation = await store.getRotation('front-end-rotation')
           const frontEndUser =  fronEndRotation.assigned.replace(/[^\w\s]/gi, '')
           const users = [frontEndUser, backEndUser, "U043P0GBSH1"]
           const updateGroup = await app.client.usergroups.users.update(
-            utils.grpConfig(process.env.SLACK_USER_TOKEN, process.env.SLACK_USER_GROUP, users))
-          console.log(updateGroup)
-            // {
-            // token: process.env.SLACK_USER_TOKEN,
-            // usergroup: process.env.SLACK_USER_GROUP,
-            // users: users
-            // })
-          // utils.grpConfig(process.env.SLACK_USER_TOKEN, process.env.SLACK_USER_GROUP, users));
+            utils.grpConfig(ec.userToken, ec.userGroup, users))
         } else {
           const frontEndUser = usermention.replace(/[^\w\s]/gi, '')
           const backEndRotation = await store.getRotation('back-end-rotation')
           const backEndUser =  backEndRotation.assigned.replace(/[^\w\s]/gi, '')
           const users = [frontEndUser, backEndUser, "U043P0GBSH1"]
           const updateGroup = await app.client.usergroups.users.update(
-            utils.grpConfig(process.env.SLACK_USER_TOKEN, process.env.SLACK_USER_GROUP, users))
-          console.log(updateGroup)
-            // {
-            // token: process.env.SLACK_USER_TOKEN,
-            // usergroup: process.env.SLACK_USER_GROUP,
-            // users: users
-            // })
+            utils.grpConfig(ec.userToken, ec.userGroup, users))
         }
       } else {
         // No staff list; cannot use "next"
