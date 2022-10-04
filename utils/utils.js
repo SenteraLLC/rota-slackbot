@@ -245,9 +245,9 @@ const utils = {
    * @param {string} userGroup to update
    * @param {string} users to add to the group
    */
-  grpConfig(botToken, userGroup, users) {
+  grpConfig(userToken, userGroup, users) {
     return {
-      token: botToken,
+      token: userToken,
       userGroup: userGroup,
       users: users
     }
