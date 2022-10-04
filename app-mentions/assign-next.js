@@ -73,7 +73,7 @@ module.exports = async (app, event, context, ec, utils, store, msgText, errHandl
         }
         else {
           const frontEndUser = usermention.replace(/[^\w\s]/gi, '')
-          const backEndRotation = await store.getRotation('front-end-rotation')
+          const backEndRotation = await store.getRotation('back-end-rotation')
           const backEndUser =  backEndRotation.assigned.replace(/[^\w\s]/gi, '')
           const users = [frontEndUser, backEndUser, "U043P0GBSH1"]
           console.log(users)
