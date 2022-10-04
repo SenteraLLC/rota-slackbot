@@ -63,7 +63,7 @@ module.exports = async (app, event, context, ec, utils, store, msgText, errHandl
           const frontEndUser =  fronEndRotation.assigned.replace(/[^\w\s]/gi, '')
           const users = [frontEndUser, backEndUser, "U043P0GBSH1"]
           const updateGroup = await app.client.usergroups.users.update(
-            utils.grpConfig(ec.userToken, ec.userGroup, users))
+            utils.grpConfig(process.env.SLACK_USER_TOKEN, process.env.SLACK_USER_GROUP, users))
           console.log(updateGroup)
             // {
             // token: process.env.SLACK_USER_TOKEN,
@@ -77,7 +77,7 @@ module.exports = async (app, event, context, ec, utils, store, msgText, errHandl
           const backEndUser =  backEndRotation.assigned.replace(/[^\w\s]/gi, '')
           const users = [frontEndUser, backEndUser, "U043P0GBSH1"]
           const updateGroup = await app.client.usergroups.users.update(
-            utils.grpConfig(ec.userToken, ec.userGroup, users))
+            utils.grpConfig(process.env.SLACK_USER_TOKEN, process.env.SLACK_USER_GROUP, users))
           console.log(updateGroup)
             // {
             // token: process.env.SLACK_USER_TOKEN,

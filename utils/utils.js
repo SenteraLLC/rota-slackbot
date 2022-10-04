@@ -248,7 +248,7 @@ const utils = {
   grpConfig(userToken, userGroup, users) {
     return {
       token: userToken,
-      userGroup: userGroup,
+      usergroup: userGroup,
       users: users
     }
   },
