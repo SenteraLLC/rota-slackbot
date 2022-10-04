@@ -42,8 +42,14 @@ module.exports = async (app, event, context, ec, utils, store, msgText, errHandl
         );
         // Update user group with new assignment
         const users = [usermention, "U043P0GBSH1"]
+        console.log(process.env.SLACK_USER_GROUP)
         const updateGroup = await app.client.usergroups.users.update(
-          utils.grpConfig(process.env.SLACK_USER_TOKEN, process.env.SLACK_USER_GROUP, users));
+          {
+            token: process.env.SLACK_USER_TOKEN,
+            usergroup: process.env.SLACK_USER_GROUP,
+            users: users
+          })
+          // utils.grpConfig(process.env.SLACK_USER_TOKEN, process.env.SLACK_USER_GROUP, users));
         if (!!handoffMsg) {
           // There is a handoff message
           // Send DM to newly assigned user notifying them of handoff message
