@@ -42,9 +42,8 @@ module.exports = async (app, event, context, ec, utils, store, msgText, errHandl
         );
         // Update user group with new assignment
         let assignedUser = usermention.replace(/[^\w\s]/gi, '')
-        console.log(assignedUser)
         const users = [assignedUser, "U043P0GBSH1"]
-        console.log(process.env.SLACK_USER_GROUP)
+        console.log(users)
         const updateGroup = await app.client.usergroups.users.update(
           {
             token: process.env.SLACK_USER_TOKEN,
