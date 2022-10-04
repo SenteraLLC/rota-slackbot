@@ -40,17 +40,6 @@ module.exports = async (app, event, context, ec, utils, store, msgText, errHandl
         const result = await app.client.chat.postMessage(
           utils.msgConfig(ec.botToken, ec.channelID, msgText.assignConfirm(usermention, rotation))
         );
-        // Update user group with new assignment
-        let assignedUser = usermention.replace(/[^\w\s]/gi, '')
-        const users = [assignedUser, "U043P0GBSH1"]
-        console.log(users)
-        const updateGroup = await app.client.usergroups.users.update(
-          {
-            token: process.env.SLACK_USER_TOKEN,
-            usergroup: process.env.SLACK_USER_GROUP,
-            users: users
-          })
-          // utils.grpConfig(process.env.SLACK_USER_TOKEN, process.env.SLACK_USER_GROUP, users));
         if (!!handoffMsg) {
           // There is a handoff message
           // Send DM to newly assigned user notifying them of handoff message
@@ -66,6 +55,21 @@ module.exports = async (app, event, context, ec, utils, store, msgText, errHandl
               utils.msgConfigEph(ec.botToken, ec.channelID, ec.sentByUserID, msgText.assignHandoffConfirm(usermention, rotation))
             );
           }
+        };
+        // Update user group with new assignment
+        if (rotation === 'back-end-rotation') {
+          const backEndUser = usermention.replace(/[^\w\s]/gi, '')
+          const fronEndRotation = await store.getRotation('front-end-rotation')
+          const frontEndUser =  fronEndRotation.assigned.replace(/[^\w\s]/gi, '')
+          const users = [frontEndUser, backEndUser, "U043P0GBSH1"]
+          console.log(users)
+          const updateGroup = await app.client.usergroups.users.update(
+            {
+            token: process.env.SLACK_USER_TOKEN,
+            usergroup: process.env.SLACK_USER_GROUP,
+            users: users
+            })
+          // utils.grpConfig(process.env.SLACK_USER_TOKEN, process.env.SLACK_USER_GROUP, users));
         }
       } else {
         // No staff list; cannot use "next"
