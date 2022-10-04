@@ -62,33 +62,25 @@ module.exports = async (app, event, context, ec, utils, store, msgText, errHandl
           const fronEndRotation = await store.getRotation('front-end-rotation')
           const frontEndUser =  fronEndRotation.assigned.replace(/[^\w\s]/gi, '')
           const users = [frontEndUser, backEndUser, "U043P0GBSH1"]
-          console.log(users)
-          // const updateGroup = await app.client.usergroups.users.update(
-          //   {
-          //   token: process.env.SLACK_USER_TOKEN,
-          //   usergroup: process.env.SLACK_USER_GROUP,
-          //   users: users
-          //   })
+          const updateGroup = await app.client.usergroups.users.update(
+            {
+            token: process.env.SLACK_USER_TOKEN,
+            usergroup: process.env.SLACK_USER_GROUP,
+            users: users
+            })
           // utils.grpConfig(process.env.SLACK_USER_TOKEN, process.env.SLACK_USER_GROUP, users));
         } else {
           const frontEndUser = usermention.replace(/[^\w\s]/gi, '')
           const backEndRotation = await store.getRotation('back-end-rotation')
           const backEndUser =  backEndRotation.assigned.replace(/[^\w\s]/gi, '')
           const users = [frontEndUser, backEndUser, "U043P0GBSH1"]
-          console.log(users)
-          // const updateGroup = await app.client.usergroups.users.update(
-          //   {
-          //   token: process.env.SLACK_USER_TOKEN,
-          //   usergroup: process.env.SLACK_USER_GROUP,
-          //   users: users
-          //   })
-        }
-        const updateGroup = await app.client.usergroups.users.update(users,
+          const updateGroup = await app.client.usergroups.users.update(
             {
             token: process.env.SLACK_USER_TOKEN,
             usergroup: process.env.SLACK_USER_GROUP,
             users: users
-            });
+            })
+        }
       } else {
         // No staff list; cannot use "next"
         const result = await app.client.chat.postMessage(
