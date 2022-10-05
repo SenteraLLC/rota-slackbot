@@ -29,8 +29,6 @@ const app_mentions = (app, store) => {
       sentByUserID: event.user,                   // ID of user who sent the message
       channelID: event.channel,                   // channel ID
       botToken: context.botToken,                 // bot access token
-      userToken: context.userToken,               // user access token
-      userGroup: context.userGroup,               // Slack user group
       rotaList: await store.getRotations()        // rotations in db
     }
     // Decision logic establishing how to respond to mentions
