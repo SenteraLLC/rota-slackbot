@@ -57,7 +57,6 @@ module.exports = async (app, event, context, ec, utils, store, msgText, errHandl
           }
         };
         // Update user group with new assignment
-        console.log(ec)
         if (rotation === 'back-end-rotation') {
           const backEndUser = usermention.replace(/[^\w\s]/gi, '')
           const fronEndRotation = await store.getRotation('front-end-rotation')
